@@ -12,6 +12,7 @@
 
 
 <body>
+<div class="container">
 <nav>
     <div class="nav-wrapper">
       <ul id="nav-mobile" class="left hide-on-med-and-down">
@@ -23,16 +24,23 @@
 <div id="area-example"></div>
 <p id="roomCount"></p>
 
+</div>
 
 </body>
 
 <script>
-Morris.Area({
+test = 30;
+window.temp = 99;
+
+graph = Morris.Area({
   element: 'area-example',
   data: [
-    { y: '2006', a: 100, b: 90 },
+	{ y: '2003', a: 100, b: 80 },
+	{ y: '2004', a: 100, b: 20 },
+	{ y: '2005', a: 100, b: 60 },
+	{ y: '2006', a: 100, b: 90 },
     { y: '2007', a: 75,  b: 65 },
-    { y: '2008', a: 50,  b: 40 },
+    { y: '2008', a: 50,  b: 20 },
     { y: '2009', a: 75,  b: 65 },
     { y: '2010', a: 50,  b: 40 },
     { y: '2011', a: 75,  b: 65 },
@@ -42,16 +50,30 @@ Morris.Area({
   ykeys: ['a', 'b'],
   labels: ['Series A', 'Series B']
 });
-</script>
 
-<script>
-setInterval(function(){ showCount(0); }, 1000);
+setInterval(function(){ showCount(0, test); }, 1000);
 
 function showCount(room) {
+		window.test = 88;
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("roomCount").innerText = this.responseText;
+				test = this.responseText;
+				if (test == temp) return;
+				window.temp = test;
+                document.getElementById("roomCount").innerText = test;
+				anotherDataSet = [   
+				{ y: '2003', a: 100, b: 80 },
+				{ y: '2004', a: 100, b: 20 },
+				{ y: '2005', a: 100, b: 30 },
+				{ y: '2006', a: 100, b: 90 },
+				{ y: '2007', a: 75,  b: 65 },
+				{ y: '2008', a: 50,  b: test },
+				{ y: '2009', a: 75,  b: 65 },
+				{ y: '2010', a: 50,  b: 40 },
+				{ y: '2011', a: 75,  b: 65 },
+				{ y: '2012', a: 100, b: 90 }]
+				graph.setData(anotherDataSet);
             }
         };
         xmlhttp.open("GET", "db/getCount.php?floor=1&room=" + room, true);

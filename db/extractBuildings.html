@@ -1,0 +1,37 @@
+<html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+
+$.get
+({
+  url: "https://bldg-pi-api.ou.ad3.ucdavis.edu/piwebapi/assetdatabases/D0bgZy4oKQ9kiBiZJTW7eugwN7QbJ9-Iok6oq15MMyQZPwVVRJTC1BRlxVVElMSVRJRVM/elements",
+beforeSend: function (xhr) 
+{
+ xhr.setRequestHeader("Authorization", "Basic " + btoa("ou\\pi-api-public:M53$dx7,d3fP8") );
+ }, success: function(val) 
+ { console.log(val); }
+});
+/*
+beforeSend: function (xhr) 
+{
+    xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+},
+
+
+$.ajax ({ 
+url: "server.in.local/index.php";, 
+beforeSend: function (xhr) 
+{
+ xhr.setRequestHeader("Authorization", "Basic " + encodeBase64 ("ou\pi-api-public:M53$dx7,d3fP8") );
+ }, succes: function(val) 
+ { alert(val); alert("Thanks for your comment!"); } 
+ });
+
+*/
+
+</script>
+
+
+
+</html>

@@ -2,21 +2,23 @@
  
 require("db.php");
  
-if(isset($_GET['first']))
+if(isset($_GET['floor']) && isset($_GET['room']) && isset($_GET['count']))
 {
-    $firstname = $_GET['first'];
-    mysql_query("update people set firstname = '". $firstname ."' where id = 0");
-     
+    $floor = $_GET['floor'];
+	$room = $_GET['room'];
+	$count = $_GET['count'];
+	
+	//$query = mysql_query("SELECT * FROM people where id = 0");
+	echo $floor . " ". $room . " " . $count;
+	
+	mysql_query("insert into occupancy (floor, room, count) VALUES (". $floor .", ".$room.", ".$count.")");
+}
+else{
+	echo "Error: Need variables floor, room, event.";
 }
  
-if(isset($_GET['last']))
-{
-    $lastname = $_GET['last'];
-    mysql_query("update people set lastname = '". $lastname ."' where id = 0");
-     
-}
  
- 
+ /*
 $query = mysql_query("SELECT * FROM people where id = 0");
 $num = mysql_num_rows($query);
  
@@ -31,6 +33,7 @@ for ($i = 0; $i < $num; $i++)
 }
  
 echo $firstname . " " . $lastname;
+*/
  
  
 ?>

@@ -4,6 +4,7 @@
 <head>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="assests/main.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
@@ -12,45 +13,26 @@
 
 
 <body>
-<div class="container">
 <nav>
     <div class="nav-wrapper">
       <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li class="active"><a href="#">Sass</a></li>
+        <li class="active"><a href="#">Live</a></li>
         <li><a href="usage.html">Usage</a></li>
       </ul>
+    </div>
+    <div class="container">
+        <div>
+            <img class="responsive-img" src="assets/currant-1-nonumber.png">
+        </div>
     </div>
 </nav>
 <div id="area-example"></div>
 <p id="roomCount"></p>
-
-</div>
-
 </body>
 
 <script>
-test = 30;
-window.temp = 99;
-
-graph = Morris.Area({
-  element: 'area-example',
-  data: [
-	{ y: '2003', a: 100, b: 80 },
-	{ y: '2004', a: 100, b: 20 },
-	{ y: '2005', a: 100, b: 60 },
-	{ y: '2006', a: 100, b: 90 },
-    { y: '2007', a: 75,  b: 65 },
-    { y: '2008', a: 50,  b: 20 },
-    { y: '2009', a: 75,  b: 65 },
-    { y: '2010', a: 50,  b: 40 },
-    { y: '2011', a: 75,  b: 65 },
-    { y: '2012', a: 100, b: 90 }
-  ],
-  xkey: 'y',
-  ykeys: ['a', 'b'],
-  labels: ['Series A', 'Series B']
-});
-
+var hi = "hello";
+/*
 setInterval(function(){ showCount(0, test); }, 1000);
 
 function showCount(room) {
@@ -78,7 +60,7 @@ function showCount(room) {
         };
         xmlhttp.open("GET", "db/getCount.php?floor=1&room=" + room, true);
         xmlhttp.send();
-    }
+    }*/
 
 </script>
 

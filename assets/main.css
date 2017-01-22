@@ -1,5 +1,5 @@
 #overoverlay{
-    top:0px;
+    top:64px;
     left:0px;
     position:absolute;
     height:100%;
@@ -8,6 +8,6 @@
 #overoverlay > .container > p{
     font-size: 20px;
     margin-left: 53%;
-    margin-top: 35%;
+    margin-top: 27%;
     display: inline-block;
 }

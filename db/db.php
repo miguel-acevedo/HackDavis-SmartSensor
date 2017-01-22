@@ -3,9 +3,9 @@
 <?php
 
 
-$dbhost = "localhost";
-$dbuser = "root";
-$dbpass = "";
+$dbhost = "104.236.158.81";
+$dbuser = "funbox";
+$dbpass = "miguel98";
 $dbname = "rooms";
 
 $con = mysql_connect($dbhost,$dbuser,$dbpass);

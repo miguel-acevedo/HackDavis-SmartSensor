@@ -2,74 +2,83 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="./bower_components/c3/c3.min.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.4.3/d3.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.js"></script>
-</head>
-
-
-<body>
-
-<nav>
-    <div class="nav-wrapper">
-      <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li><a href="index.html">Live</a></li>
-        <li class="active"><a href="#">Usage</a></li>
-      </ul>
-    </div>
-</nav>
-<div class="container">
-    <select id="building-select"></select>
-    <div id="roomCount"></div>
-</div>
-</body>
-
-<script>
+    <script src="./bower_components/d3/d3.min.js" charset="utf-8"></script>
+    <script src="./bower_components/c3/c3.js"></script>
+    <script>
 var chart;
 $(function(){
-    $.get("db/getBuildings",function(data){
-        console.log(data);
-        $.each(data,function(i,value){
-            $("#building-select").append(`<option value=${value}>${value}</option>`);
-        });
-        $("#building-select").val(data[0]);
-        $("#building-select").change(load);
-    });
-    window.setInterval(update,1000);
+    load();
+    window.setInterval(update,10000);
 });
 function load(){
     var value = $("#building-select").val();
-    $.get("db/getEnergy.php",{
-        building: value
+    $.get("db/getEnergy.php?building=kearney",{
     },function(data){
         console.log("select loading");
+        data = JSON.parse(data);
+        var powers = ['data1'];
+        var counts = ['data2'];
+        var xpower = ['x1'];
+        var xcount = ['x2'];
+        for(var i=0; i<data.length;i++){
+            if(data[i].power){
+                data[i].time = data[i].time.substr(0,data[i].time.length-8);
+                data[i].power = parseInt(data[i].power);
+                xpower.push(data[i].time);
+                powers.push(data[i].power);
+            }
+            if(data[i].count){
+                data[i].count = parseInt(data[i].count);
+                xcount.push(data[i].time);
+                counts.push(data[i].count);
+            }
+        }
         console.log(data);
         chart = c3.generate({
             bindto:"#roomCount",
             data:{
-                url:'db/getEnergy.php'
+                xs:{
+                    'data1':'x1',
+                    'data2':'x2'
+                },
+            xFormat: '%Y-%m-%d %H:%M:%S',
+                columns:[
+                    xpower,
+                    xcount,
+                    powers,
+                    counts
+                ],
+                types:{
+                    data1:'area',
+                    data2:'line'
+                }
             },
-            keys:{
-                value:['count']
+            names:{
+                data1: 'power',
+                data2: 'count'
             },
-            x: 'time',
-            xFormat: '%Y-%m-%d %H:%M:%S'
+            axis:{
+                x:{
+                    type: 'timeseries',
+                    tick:{
+                        format:'%Y-%m-%d %H:%M:%S'
+                    }
+                }
+            }
         });
     });
 }
 function update(){
-    $.get("db/getEnergy.php",{
+    $.get("db/getEnergy.php?building=kearney",{
         floor:1,
         room:0
     },function(data){
-        console.log("update");
-        console.log(data);
+        data = JSON.parse(data);
+        //chart.load(data);
     });
 }
 /*test = 30;
@@ -105,6 +114,21 @@ function showCount(room) {
     }*/
 
 </script>
+</head>
+
+
+<body>
+
+<nav>
+    <div class="nav-wrapper">
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <li><a href="index.html">Live</a></li>
+        <li class="active"><a href="#">Usage</a></li>
+      </ul>
+    </div>
+</nav>
+<div id="roomCount"></div>
+</body>
 
 
 </html>

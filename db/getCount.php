@@ -7,15 +7,15 @@ $return_arr = array();
 $building = $_GET['building']; // Name of the building your trying to get data from.
 $floor = $_GET['floor'];
 
-$query = mysql_query("SELECT * FROM occupancy where building='".$building."' and floor=".$floor." ORDER BY time DESC"); 
+$query = mysqli_query("SELECT * FROM occupancy where building='".$building."' and floor=".$floor." ORDER BY time DESC"); 
 
-$num = mysql_num_rows($query);
+$num = mysqli_num_rows($query);
 
 $found = array();
  
 for ($i = 0; $i < $num; $i++)
 {
-    if($data = mysql_fetch_array($query))
+    if($data = mysqli_fetch_array($query))
     {
 		$row_array['time'] = $data['time'];
 		$row_array['room'] = $data['room'];

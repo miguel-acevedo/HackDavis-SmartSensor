@@ -8,10 +8,10 @@ if(isset($_GET['floor']) && isset($_GET['room']) && isset($_GET['count']))
 	$room = $_GET['room'];
 	$count = $_GET['count'];
 	
-	//$query = mysql_query("SELECT * FROM people where id = 0");
+	//$query = mysqlii_query("SELECT * FROM people where id = 0");
 	echo $floor . " ". $room . " " . $count;
 	
-	mysql_query("insert into occupancy (floor, room, count) VALUES (". $floor .", ".$room.", ".$count.")");
+	mysqli_query("insert into occupancy (floor, room, count) VALUES (". $floor .", ".$room.", ".$count.")");
 }
 else{
 	echo "Error: Need variables floor, room, event.";
@@ -19,12 +19,12 @@ else{
  
  
  /*
-$query = mysql_query("SELECT * FROM people where id = 0");
-$num = mysql_num_rows($query);
+$query = mysqli_query("SELECT * FROM people where id = 0");
+$num = mysqli_num_rows($query);
  
 for ($i = 0; $i < $num; $i++)
 {
-    if($data = mysql_fetch_array($query))
+    if($data = mysqli_fetch_array($query))
     {
         $firstname = $data['firstname'];
         $lastname = $data['lastname'];

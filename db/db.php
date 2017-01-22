@@ -8,9 +8,9 @@ $dbuser = "funbox";
 $dbpass = "miguel98";
 $dbname = "rooms";
 
-$con = mysql_connect($dbhost,$dbuser,$dbpass);
+$con = mysqli_connect($dbhost,$dbuser,$dbpass);
 
-mysql_select_db($dbname,$con);
+mysqli_select_db($dbname,$con);
 
 
  ?>

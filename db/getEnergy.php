@@ -5,13 +5,13 @@ $return_arr = array();
 
 $building = $_GET['building']; // Name of the building your trying to get data from.
 
-$query = mysql_query("SELECT * FROM energy where type='".$building."'"); 
+$query = mysqli_query("SELECT * FROM energy where type='".$building."'"); 
 
-$num = mysql_num_rows($query);
+$num = mysqli_num_rows($query);
  
 for ($i = 0; $i < $num; $i++)
 {
-    if($data = mysql_fetch_array($query))
+    if($data = mysqli_fetch_array($query))
     {
 		$row_array['time'] = $data['time'];
 		$row_array['power'] = $data['power'];
@@ -19,13 +19,13 @@ for ($i = 0; $i < $num; $i++)
 		array_push($return_arr,$row_array);      
     }
 }
-$query = mysql_query("SELECT * FROM occupancy where building='currant'"); 
+$query = mysqli_query("SELECT * FROM occupancy where building='currant'"); 
 
-$num = mysql_num_rows($query);
+$num = mysqli_num_rows($query);
  
 for ($i = 0; $i < $num; $i++)
 {
-    if($data = mysql_fetch_array($query))
+    if($data = mysqli_fetch_array($query))
     {
 		$new_array['time'] = $data['time'];
 		$new_array['count'] = $data['count'];

@@ -1,0 +1,86 @@
+<title>Smart Room Sensor</title>
+<html>
+
+<head>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+</head>
+
+
+<body>
+
+<nav>
+    <div class="nav-wrapper">
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <li class="active"><a href="#">Sass</a></li>
+        <li><a href="usage.html">Usage</a></li>
+      </ul>
+    </div>
+</nav>
+<div id="area-example"></div>
+<p id="roomCount"></p>
+
+
+
+</body>
+
+<script>
+test = 30;
+window.temp = 99;
+
+graph = Morris.Area({
+  element: 'area-example',
+  data: [
+	{ y: '2003', a: 100, b: 80 },
+	{ y: '2004', a: 100, b: 20 },
+	{ y: '2005', a: 100, b: 60 },
+	{ y: '2006', a: 100, b: 90 },
+    { y: '2007', a: 75,  b: 65 },
+    { y: '2008', a: 50,  b: 20 },
+    { y: '2009', a: 75,  b: 65 },
+    { y: '2010', a: 50,  b: 40 },
+    { y: '2011', a: 75,  b: 65 },
+    { y: '2012', a: 100, b: 90 }
+  ],
+  xkey: 'y',
+  ykeys: ['a', 'b'],
+  labels: ['Series A', 'Series B']
+});
+
+setInterval(function(){ showCount(0, test); }, 1000);
+
+function showCount(room) {
+		window.test = 88;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+				test = this.responseText;
+				if (test == temp) return;
+				window.temp = test;
+                document.getElementById("roomCount").innerText = test;
+				anotherDataSet = [   
+				{ y: '2003', a: 100, b: 80 },
+				{ y: '2004', a: 100, b: 20 },
+				{ y: '2005', a: 100, b: 30 },
+				{ y: '2006', a: 100, b: 90 },
+				{ y: '2007', a: 75,  b: 65 },
+				{ y: '2008', a: 50,  b: test },
+				{ y: '2009', a: 75,  b: 65 },
+				{ y: '2010', a: 50,  b: 40 },
+				{ y: '2011', a: 75,  b: 65 },
+				{ y: '2012', a: 100, b: 90 }]
+				graph.setData(anotherDataSet);
+            }
+        };
+        xmlhttp.open("GET", "db/getCount.php?floor=1&room=" + room, true);
+        xmlhttp.send();
+    }
+
+</script>
+
+
+</html>

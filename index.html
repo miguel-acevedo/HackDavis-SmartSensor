@@ -31,7 +31,11 @@
 </div>
 <div id="overoverlay">
     <div class="container">
-        <p id="room0">1</p>
+        <p id="room0">0</p>
+        <p id="room1">0</p>
+        <p id="room2">0</p>
+        <p id="room3">0</p>
+        <p id="room4">0</p>
     </div>
 </div>
 </body>
@@ -39,32 +43,30 @@
 <script>
 var hi = "hello";
 $(function(){
-    $("#overoverlay > .container").mouseenter(function(){
-        $("#overlay").show();
-        $("#lol").hide();
-    });
-    $(".container").mouseover(function(){
-        $("#lol").hide();
-        $("#overlay").show();
-    });
-    $(".container").mouseout(function(){
-        $("#lol").show();
-        $("#overlay").hide();
-    });
-    setImmediate(function(){
-        ajaxget();
-        setInterval(ajaxget,1000);
-    });
+    ajaxget();
+    window.setInterval(ajaxget,1000);
 });
 function ajaxget(){
-    $.get("db/getCount",{
+    $.get("db/getCount.php",{
         building:"currant",
         floor:1
     },function(data){
+        data = JSON.parse(data);
         console.log(data);
         for(var i=0; i<data.length;i++){
             let room = data[i];
-            $(`#room${room.room}`).text(room.count);
+            let roomP = $(`#room${room.room}`);
+            roomP.text(room.count);
+            if(room.count==0&&room.room==1){
+                $.post("https://api.particle.io/v1/devices/540044000b51353335323536/light?access_token=9583e34b129876606f217f8d6b40efc2342bd830",{
+                    command:"off"
+                });
+            }
+            else if(room.count>0&&room.room==1){
+                $.post("https://api.particle.io/v1/devices/540044000b51353335323536/light?access_token=9583e34b129876606f217f8d6b40efc2342bd830",{
+                    command:"on"
+                });
+            }
         }
     });
 }

@@ -41,7 +41,7 @@ $(function(){
         $("#building-select").val(data[0]);
         $("#building-select").change(load);
     });
-    setInterval(update,1000);
+    window.setInterval(update,1000);
 });
 function load(){
     var value = $("#building-select").val();

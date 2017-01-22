@@ -7,7 +7,26 @@
 }
 #overoverlay > .container > p{
     font-size: 20px;
-    margin-left: 53%;
-    margin-top: 27%;
     display: inline-block;
+    position: absolute;
+}
+#overoverlay > .container > #room0{
+    margin-left: 37%;
+    margin-top: 19%;
+}
+#overoverlay > .container > #room1{
+    margin-left: 31%;
+    margin-top: 19%;
+}
+#overoverlay > .container > #room2{
+    margin-left: 7%;
+    margin-top: 24%;
+}
+#overoverlay > .container > #room3{
+    margin-left: 59%;
+    margin-top: 19%;
+}
+#overoverlay > .container > #room4{
+    margin-left: 24%;
+    margin-top: 11%;
 }

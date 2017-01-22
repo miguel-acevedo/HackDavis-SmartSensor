@@ -2,16 +2,54 @@
 <html>
 
 <head>
-<!-- JS libraries -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 </head>
 
 
 <body>
 
-
+<div id="area-example"></div>
+<p id="roomCount"></p>
 
 
 </body>
+
+<script>
+Morris.Area({
+  element: 'area-example',
+  data: [
+    { y: '2006', a: 100, b: 90 },
+    { y: '2007', a: 75,  b: 65 },
+    { y: '2008', a: 50,  b: 40 },
+    { y: '2009', a: 75,  b: 65 },
+    { y: '2010', a: 50,  b: 40 },
+    { y: '2011', a: 75,  b: 65 },
+    { y: '2012', a: 100, b: 90 }
+  ],
+  xkey: 'y',
+  ykeys: ['a', 'b'],
+  labels: ['Series A', 'Series B']
+});
+</script>
+
+<script>
+setInterval(function(){ showCount(0); }, 1000);
+
+function showCount(room) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("roomCount").innerText = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "db/getCount.php?floor=1&room=" + room, true);
+        xmlhttp.send();
+    }
+
+</script>
 
 
 </html>

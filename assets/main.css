@@ -1,3 +1,13 @@
-.right{
-    margin-left:100px;
+#overoverlay{
+    top:0px;
+    left:0px;
+    position:absolute;
+    height:100%;
+    width:100%;
+}
+#overoverlay > .container > p{
+    font-size: 20px;
+    margin-left: 53%;
+    margin-top: 35%;
+    display: inline-block;
 }

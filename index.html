@@ -22,19 +22,41 @@
     </div>
 </nav>
 <div class="container">
-        <div>
-            <img class="responsive-img" src="./assets/currant-1-nonumber.png">
-        </div>
+    <div id="lol">
+        <img class="responsive-img" src="./assets/currant-1-nonumber.png">
+    </div>
+    <div id="overlay" hidden>
+        <img class="responsive-img" src="./assets/currant-1.png">
+    </div>
+</div>
+<div id="overoverlay">
+    <div class="container">
+        <p>1</p>
+    </div>
 </div>
 </body>
 
 <script>
 var hi = "hello";
 $(function(){
-
+    $("#overoverlay > .container").mouseenter(function(){
+        $("#overlay").show();
+        $("#lol").hide();
+    });
+    $(".container").mouseover(function(){
+        $("#lol").hide();
+        $("#overlay").show();
+    });
+    $(".container").mouseout(function(){
+        $("#lol").show();
+        $("#overlay").hide();
+    });
+    setImmediate(function(){
+        ajaxget();
+        setInterval(ajaxget,1000);
+    });
 });
 function ajaxget(){
-
 }
 /*
 setInterval(function(){ showCount(0, test); }, 1000);

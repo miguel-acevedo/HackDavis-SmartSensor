@@ -31,7 +31,7 @@
 </div>
 <div id="overoverlay">
     <div class="container">
-        <p id="room0">0</p>
+        <p id="room0">6</p>
         <p id="room1">0</p>
         <p id="room2">0</p>
         <p id="room3">0</p>
@@ -47,27 +47,12 @@ $(function(){
     window.setInterval(ajaxget,1000);
 });
 function ajaxget(){
-    $.get("db/getCount.php",{
-        building:"currant",
-        floor:1
+    $.get("https://api.particle.io/v1/devices/540044000b51353335323536/people?access_token=9583e34b129876606f217f8d6b40efc2342bd830",{
     },function(data){
-        data = JSON.parse(data);
         console.log(data);
-        for(var i=0; i<data.length;i++){
-            let room = data[i];
-            let roomP = $(`#room${room.room}`);
-            roomP.text(room.count);
-            if(room.count==0&&room.room==1){
-                $.post("https://api.particle.io/v1/devices/540044000b51353335323536/light?access_token=9583e34b129876606f217f8d6b40efc2342bd830",{
-                    command:"off"
-                });
-            }
-            else if(room.count>0&&room.room==1){
-                $.post("https://api.particle.io/v1/devices/540044000b51353335323536/light?access_token=9583e34b129876606f217f8d6b40efc2342bd830",{
-                    command:"on"
-                });
-            }
-        }
+        $(`#room${1}`).text(data.result);
+        if(6-data.result>-1)
+        $(`#room${0}`).text(6-data.result);
     });
 }
 /*
